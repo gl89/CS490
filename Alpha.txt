@@ -1,8 +1,0 @@
-Alpha
-
-Curl ---> Curl -->  blah balh
-	Middle
-	Check name pword
-
-	Seperate curl request to NJIT; 
-
