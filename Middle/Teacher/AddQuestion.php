@@ -3,8 +3,7 @@
 	//echo file_get_contents('php://input'); //For testing purposes, front end not posting properly.
 	$recieve = json_decode($frontinfo);
 	
-	//print_r($recieve);
-	
+
 	//Shouldn't matter that different Qtypes don't have a Ans3, Ans4 ect. 
 	//We can't spell.
 	$question = $recieve->Question;
@@ -13,8 +12,19 @@
 	$ans3 = $recieve->Ans3;
 	$ans4 = $recieve->Ans4;
 	$correct = $recieve->Correct;
+	$correct1 = $recieve->Correct1;
+	$correct2 = $recieve->Correct2;
+	$correct3 = $recieve->Correct3;
+	$correct4 = $recieve->Correct4;
+	$correct5 = $recieve->Correct5;
 	$qtype = $recieve->qtype;
-	$input = $recieve->Input; 
+	$input1 = $recieve->Input1; 
+	$input2 = $recieve->Input2; 
+	$input3 = $recieve->Input3; 
+	$input4 = $recieve->Input4; 
+	$input5 = $recieve->Input5; 
+	$points = $recieve->Points; 
+	
 	
 	//I'm the one who will end up determining which back end file to send it to. 
 	if($qtype=="TF"){
@@ -22,7 +32,8 @@
 				$fields= array(
 				"Question"=>$question,
 				"Correct"=>$correct,
-				"qtype"=>$qtype
+				"qtype"=>$qtype,
+				"Points"=>$points
 				);
 	}  
 	if($qtype=="FI"){
@@ -30,16 +41,27 @@
 				$fields= array(
 				"Question"=>$question,
 				"Correct"=>$correct,
-				"qtype"=>$qtype
+				"qtype"=>$qtype,
+				"Points"=>$points
 				);
 	} 
 	if($qtype=="OE"){
 				$URL="https://web.njit.edu/~ef33/cs490/back/createOEQuestion.php";
 				$fields= array(
 				"Question"=>$question,
-				"Correct"=>$correct,
+				"Correct1"=>$correct1,
+				"Correct2"=>$correct2,
+				"Correct3"=>$correct3,
+				"Correct4"=>$correct4,
+				"Correct5"=>$correct5,
 				"qtype"=>$qtype,
-				"Input"=>$input
+				"Input1"=>$input1,
+				"Input2"=>$input2,
+				"Input3"=>$input3,
+				"Input4"=>$input4,
+				"Input5"=>$input5,
+				"Points"=>$points
+				
 				);
 	}
 	if($qtype=="MC"){
@@ -51,10 +73,13 @@
 				"Ans3"=>$ans3,
 				"Ans4"=>$ans4,
 				"qtype"=>$qtype,
-				"Correct"=>$correct
+				"Correct"=>$correct,
+				"Points"=>$points
 				);
 	}
 	$send = json_encode($fields);
+	
+	
 	
     $ch = curl_init("$URL");
     curl_setopt($ch, CURLOPT_POST, 1);
